@@ -156,17 +156,21 @@ const char *STRSTR(const char *str1, const char *str2)
     int counter1 = 0,
         counter2 = 0;
 
+    if (str2[0] == '\0')
+        return &str1[0];
+
     for (int i = 0; str1[i] != '\0'; i++)
     {
         const char *ptr = &str1[i];
         int j = 0;
         while (str1[i] == str2[j])
         {
-            if (str2[j] == '\0')
-                return ptr;
             i++;
             j++;
+            if (str2[j] == '\0')
+                return ptr;
         }
+
     }
 
     return NULL;
