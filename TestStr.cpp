@@ -2,7 +2,6 @@
 #include <stdbool.h>
 #include <strings.h>
 #include <Windows.h>
-//#include <TXLib.h>
 #include "StrFunc.h"
 
 void TestConstStr(const struct twoConstStrings *test1, int n);
