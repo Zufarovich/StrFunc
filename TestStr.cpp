@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <strings.h>
-#include <TXLib.h>
+#include <Windows.h>
+//#include <TXLib.h>
 #include "StrFunc.h"
 
 void TestConstStr(const struct twoConstStrings *test1, int n);
 void TestStr(const struct twoStrings *test3, int n);
 void printResult(bool isSuccess, const char *func, int n);
+void SetColor(int text, int background);
 
 struct twoConstStrings 
 {
@@ -22,7 +24,7 @@ struct twoStrings
 };
 
 int main(void)
-{
+{   
     struct twoConstStrings data1[] = {
         {.str1 = "asdfghjkl"   , .str2 = "ghj"     , .ch = 'f'},
         {.str1 = "qwertyuiop"  , .str2 = "tyu"     , .ch = 'p'},
@@ -66,7 +68,7 @@ void TestConstStr(const struct twoConstStrings *test1, int n)
 
     bool condition  = true;
 
-    if(!resstrcmp)
+    if(!resstrcmp || !resSTRCMP)
         condition = (resSTRCMP == resstrcmp); 
 
     printResult((resSTRCMP * resstrcmp > 0) && condition                                                                                , "STRCMP" , n);
@@ -86,21 +88,27 @@ void printResult(bool isSuccess, const char *func, int n)
     {
         printf("test %-7s #%d", func, n + 1);
 
-        txSetConsoleAttr (FOREGROUND_GREEN);
+        SetColor(2, 0);
 
         printf("   success\n");
 
-        txSetConsoleAttr (FOREGROUND_WHITE);
+        SetColor(15, 0);
 
     }
     else
     {
         printf("test %-7s #%d", func, n + 1);
 
-        txSetConsoleAttr (FOREGROUND_RED);
+        SetColor(4, 0);
 
         printf("   fail\n");
 
-        txSetConsoleAttr (FOREGROUND_WHITE);
+        SetColor(15, 0);
     }  
+}
+
+void SetColor(int text, int background)
+{
+        HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hStdOut, (WORD)((background << 4) | text));
 }
