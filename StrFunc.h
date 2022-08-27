@@ -2,7 +2,7 @@
 * STRLEN
 * This function accepts string and returns lendth of this string
 * @param char *str - pointer to string
-* @return int counter - ledth of string  
+* @return size_t counter - ledth of string  
 */
 size_t STRLEN(const char *str);
 
@@ -70,7 +70,7 @@ int STRNCMP(const char *str1, const char *str2, int n);
 * @param int c - symbol to find
 * @return slot where this symbol apears first time or NULL
 */
-const char *STRCHR(char *str, int c);
+const char *STRCHR(const char *str, int c);
 
 /**
 * STRBRK
@@ -88,7 +88,7 @@ const char *STRPBRK(const char *str1, const char *str2);
 * @param int c - symbol
 * @return slot where located this symbol last time or NULL 
 */
-char *STRRCHR(char *str, int c);
+const char *STRRCHR(const char *str, int c);
 
 /**
 * STRSTR
