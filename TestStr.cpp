@@ -8,6 +8,7 @@ void TestConstStr(const struct twoConstStrings *test1, int n);
 void TestStr(const struct twoStrings *test3, int n);
 void printResult(bool isSuccess, const char *func, int n);
 void SetColor(int text, int background);
+void testAll(void);
 
 struct twoConstStrings 
 {
@@ -21,37 +22,6 @@ struct twoStrings
     char *str1;
     const char *str2;
 };
-
-int main(void)
-{   
-    struct twoConstStrings data1[] = {
-        {.str1 = "asdfghjkl"   , .str2 = "ghj"     , .ch = 'f'},
-        {.str1 = "qwertyuiop"  , .str2 = "tyu"     , .ch = 'p'},
-        {.str1 = "asdfghjkl"   , .str2 = "\0tyu"   , .ch = '\0'},
-        {.str1 = "   "         , .str2 = "ghj"     , .ch = 'e'},
-        {.str1 = "ono_rabotaet", .str2 = "rabotaet", .ch = '\0'},
-        {.str1 = "bn"          , .str2 = ""        , .ch = 'n'}
-    };
-
-    char example[40] = "dhsjrkfhrg";
-
-    struct twoStrings data2[] = {
-        {.str1 = example, .str2 = "cdrtyhb"},
-        {.str1 = example, .str2 = "vgyujn"},
-        {.str1 = example, .str2 = "n bvcdfrtgyhujiklpkjhbvg"},
-        {.str1 = example, .str2 = "vfghjmnb v njdma"},
-        {.str1 = example, .str2 = "rabotaet"},
-        {.str1 = example, .str2 = ""}
-    };
-
-    for (unsigned int i = 0; i < sizeof(data1) / sizeof(data1[0]); i++)
-    {
-        TestConstStr(&data1[i], i);
-        TestStr(&data2[i], i);
-    }
-
-    return 0;
-}
 
 void TestConstStr(const struct twoConstStrings *test1, int n)
 { 
@@ -110,4 +80,33 @@ void SetColor(int text, int background)
 {
         HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(hStdOut, (WORD)((background << 4) | text));
+}
+
+void testAll(void)
+{
+    struct twoConstStrings data1[] = {
+        {.str1 = "asdfghjkl"   , .str2 = "ghj"     , .ch = 'f'},
+        {.str1 = "qwertyuiop"  , .str2 = "tyu"     , .ch = 'p'},
+        {.str1 = "asdfghjkl"   , .str2 = "\0tyu"   , .ch = '\0'},
+        {.str1 = "   "         , .str2 = "ghj"     , .ch = 'e'},
+        {.str1 = "ono_rabotaet", .str2 = "rabotaet", .ch = '\0'},
+        {.str1 = "bn"          , .str2 = ""        , .ch = 'n'}
+    };
+
+    char example[40] = "dhsjrkfhrg";
+
+    struct twoStrings data2[] = {
+        {.str1 = example, .str2 = "cdrtyhb"},
+        {.str1 = example, .str2 = "vgyujn"},
+        {.str1 = example, .str2 = "n bvcdfrtgyhujiklpkjhbvg"},
+        {.str1 = example, .str2 = "vfghjmnb v njdma"},
+        {.str1 = example, .str2 = "rabotaet"},
+        {.str1 = example, .str2 = ""}
+    };
+
+    for (unsigned int i = 0; i < sizeof(data1) / sizeof(data1[0]); i++)
+    {
+        TestConstStr(&data1[i], i);
+        TestStr(&data2[i], i);
+    }
 }
