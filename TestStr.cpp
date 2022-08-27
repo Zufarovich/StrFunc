@@ -60,7 +60,16 @@ void TestConstStr(const struct twoConstStrings *test1, int n)
     printResult(STRLEN(test1->str1) == strlen(test1->str1)                                                                              , "STRLEN" , n);
     printResult(STRCHR(test1->str1, test1->ch) == strchr(test1->str1, test1->ch)                                                        , "STRCHR" , n);
     printResult(STRRCHR(test1->str1, test1->ch) == strrchr(test1->str1, test1->ch)                                                      , "STRRCHR", n);
-    printResult(((STRCMP(test1->str1, test1->str2) > 0) && (strcmp(test1->str1, test1->str2) == 1)) || ((STRCMP(test1->str1, test1->str2) < 0) && (strcmp(test1->str1, test1->str2) == -1)) || STRCMP(test1->str1, test1->str2) == strcmp(test1->str1, test1->str2), "STRCMP" , n);
+
+    int resSTRCMP = STRCMP(test1->str1, test1->str2);
+    int resstrcmp = strcmp(test1->str1, test1->str2);
+
+    bool condition  = true;
+
+    if(!resstrcmp)
+        condition = (resSTRCMP == resstrcmp); 
+
+    printResult((resSTRCMP * resstrcmp > 0) && condition                                                                                , "STRCMP" , n);
     printResult(STRNCMP(test1->str1, test1->str2, sizeof(test1->str1) - 2) == strncmp(test1->str1, test1->str2, sizeof(test1->str1) - 2), "STRNCMP", n);
 }
 
