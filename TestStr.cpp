@@ -3,25 +3,9 @@
 #include <strings.h>
 #include <Windows.h>
 #include "StrFunc.h"
+#include "TestStr.h"
 
-void TestConstStr(const struct twoConstStrings *test1, int n);
-void TestStr(const struct twoStrings *test3, int n);
-void printResult(bool isSuccess, const char *func, int n);
 void SetColor(int text, int background);
-void testAll(void);
-
-struct twoConstStrings 
-{
-    const char *str1;
-    const char *str2;
-    const char ch;
-};
-
-struct twoStrings
-{
-    char *str1;
-    const char *str2;
-};
 
 void TestConstStr(const struct twoConstStrings *test1, int n)
 { 

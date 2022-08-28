@@ -45,7 +45,7 @@ char *STRCAT(char *str1, const char *str2)
 {
     int counter1 = STRLEN(str1);
 
-    for (int i = 0; i < STRLEN(str2); i++)
+    for (int i = 0; str2[i]; i++)
     {
         str1[counter1] = str2[i];
         counter1++;
@@ -59,9 +59,9 @@ char *STRCAT(char *str1, const char *str2)
 char *STRNCAT(char *str1, const char *str2, int n)
 {
     int counter1 = STRLEN(str1);
-    const int sixeStr2 = STRLEN(str2); 
+    const int sizeStr2 = STRLEN(str2); 
 
-    for (int i = 0; i < sixeStr2 && (i + counter1) < n; i++)
+    for (int i = 0; i < sizeStr2 && (i + counter1) < n; i++)
     {
         str1[counter1] = str2[i];
         counter1++;
@@ -154,9 +154,6 @@ const char *STRRCHR(const char *str, int c)
 
 const char *STRSTR(const char *str1, const char *str2)
 {
-    int counter1 = 0,
-        counter2 = 0;
-
     if (str2[0] == '\0')
         return &str1[0];
 
