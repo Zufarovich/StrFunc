@@ -45,7 +45,7 @@ char *STRCAT(char *str1, const char *str2)
 {
     int counter1 = STRLEN(str1);
 
-    for (int i = 0; str2[i]; i++)
+    for (int i = 0; str2[i] != '\0'; i++)
     {
         str1[counter1] = str2[i];
         counter1++;

@@ -3,7 +3,9 @@
 #include "StrFunc.h"
 #include "TestStr.h"
 
-const int ERROR_OPEN_FILE = -1;
+const int ERROR_OPEN_FILE = 1;
+
+void swap(char **ptr1, char **ptr2);
 
 int main(void)
 {
@@ -11,51 +13,85 @@ int main(void)
     
     if (Onegin ==  NULL)
     {
-        printf("File doesn't opened");
+        printf("File doesn't opened\n");
         return ERROR_OPEN_FILE;
     }
 
-    int save       = 0,
-        counterStr = 0,
+    printf("File opened\n");
+
+    int counterStr = 0,
         counterMax = 0;
 
     char ch = '\0';
 
-    while (fscanf(Onegin, "%c", &ch) != EOF)
+    while ((ch = fgetc(Onegin)) != EOF)
     {
-        save++;
-
         if (ch == '\n')
-        {
             counterStr++;
-
-            if (save > counterMax)
-                counterMax = save;
-        }
     }
 
-    char *arr = (char *)calloc(counterStr, sizeof(char)*counterMax);
+    printf("%d\n", counterStr);
+    printf("Symbols have read\n");
 
-    if (arr ==NULL)
-    {
-        printf("Vse ploho");
-        return -1;
-    }
+    char **arrOfStrings = (char**)calloc(counterStr, sizeof(char*));
 
-    int numStr = 0;
+    int save = 0;
 
-    while (numStr <= counterStr)
-    {
-        fgets(&arr[numStr], counterMax, Onegin);
-        numStr++;
-    }
-
-    char *ptrTostr[counterStr];
+    rewind(Onegin);
 
     for (int i = 0; i < counterStr; i++)
-        ptrTostr[i] = &arr[i];
+    {
+        while ((ch = fgetc(Onegin)) != '\n' && ch != EOF)
+        {
+            counterMax++;
+        }
+
+        arrOfStrings[i] = (char *)calloc(counterMax, sizeof(char));
+
+        if (save < counterMax)
+            save = counterMax;
+
+        counterMax = 0;
+    } // seek, lseek
+
+    rewind(Onegin);
+
+    for (int i = 0; i < counterStr; i++)
+    {
+        fgets(arrOfStrings[i], save, Onegin);
+        printf("%s", arrOfStrings[i]);
+    }
+
+    printf("Strings have written\n");
+
+    for (int i = 0; i < counterStr - 1; i++)
+    {
+        for (int j = 0 ; j < counterStr - i - 1; j++)
+        {
+            if (STRCMP(arrOfStrings[j], arrOfStrings[j+1]) > 0)
+                swap(&arrOfStrings[j], &arrOfStrings[j+1]);
+        }
+    }
+    
+    for (int i = 0; i < counterStr; i++)
+        printf("%s", arrOfStrings[i]);
 
     fclose(Onegin);
+    
+    for (int i = 0; i < counterStr; i++)
+    {
+        free(arrOfStrings[i]);
+    }
+
+    free(arrOfStrings);
 
     return 0;
+}
+
+void swap(char **ptr1, char **ptr2)
+{
+    char *save;
+    save = *ptr1;
+    *ptr1 = *ptr2;
+    *ptr2 = save;
 }
